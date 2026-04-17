@@ -18,6 +18,7 @@ import ManageMotions from '../pages/admin/ManageMotions'
 import Results from '../pages/admin/Results'
 import NotFound from '../pages/NotFound'
 import Loader from '../components/common/Loader'
+import ManageCategories from '../pages/admin/ManageCategories'
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useSelector(state => state.auth)
@@ -48,6 +49,7 @@ export default function AppRouter() {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/meeting/:id" element={<ProtectedRoute><MeetingDetails /></ProtectedRoute>} />
         <Route path="/meeting/:id/attendance" element={<ProtectedRoute><AttendancePage /></ProtectedRoute>} />
+        <Route path="/admin/categories/:sectionId"element={<AdminRoute><ManageCategories /></AdminRoute>}/>
         <Route path="/meeting/:id/sections" element={<ProtectedRoute><SectionsPage /></ProtectedRoute>} />
         <Route path="/meeting/:id/vote/people/:sectionId" element={<ProtectedRoute><VotePeople /></ProtectedRoute>} />
         <Route path="/meeting/:id/vote/motions/:sectionId" element={<ProtectedRoute><VoteMotions /></ProtectedRoute>} />

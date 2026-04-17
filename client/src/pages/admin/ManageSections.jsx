@@ -70,7 +70,7 @@ export default function ManageSections() {
               </div>
               <div style={{ display: 'flex', gap: '8px' }}>
                 {s.type === SECTION_TYPES.ELECTION && (
-                  <Button size="sm" variant="secondary" icon={<Users size={13} />} onClick={() => navigate(`/admin/candidates/${s.id}`)}>Candidates</Button>
+                  <Button size="sm" variant="secondary" icon={<Users size={13} />} onClick={() => navigate(`/admin/categories/${s.id}`)}>Categories</Button>
                 )}
                 {s.type === SECTION_TYPES.MOTION && (
                   <Button size="sm" variant="secondary" icon={<Vote size={13} />} onClick={() => navigate(`/admin/motions/${s.id}`)}>Motions</Button>
