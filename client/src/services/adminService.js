@@ -1,3 +1,71 @@
+// // import { supabase } from './supabaseClient'
+
+// // export const adminService = {
+// //   async getAllUsers() {
+// //     const { data, error } = await supabase.from('users').select('*').order('created_at', { ascending: false })
+// //     if (error) throw error
+// //     return data
+// //   },
+
+// //   async createSection(section) {
+// //     const { data, error } = await supabase.from('sections').insert(section).select().single()
+// //     if (error) throw error
+// //     return data
+// //   },
+
+// //   async updateSection(id, updates) {
+// //     const { data, error } = await supabase.from('sections').update(updates).eq('id', id).select().single()
+// //     if (error) throw error
+// //     return data
+// //   },
+
+// //   async deleteSection(id) {
+// //     const { error } = await supabase.from('sections').delete().eq('id', id)
+// //     if (error) throw error
+// //   },
+
+// //   async createCandidate(candidate) {
+// //     const { data, error } = await supabase.from('candidates').insert(candidate).select().single()
+// //     if (error) throw error
+// //     return data
+// //   },
+
+// //   async deleteCandidate(id) {
+// //     const { error } = await supabase.from('candidates').delete().eq('id', id)
+// //     if (error) throw error
+// //   },
+
+// //   async createMotion(motion) {
+// //     const { data, error } = await supabase.from('motions').insert(motion).select().single()
+// //     if (error) throw error
+// //     return data
+// //   },
+
+// //   async updateMotion(id, updates) {
+// //     const { data, error } = await supabase.from('motions').update(updates).eq('id', id).select().single()
+// //     if (error) throw error
+// //     return data
+// //   },
+
+// //   async deleteMotion(id) {
+// //     const { error } = await supabase.from('motions').delete().eq('id', id)
+// //     if (error) throw error
+// //   },
+
+// //   async getFullResults(meetingId) {
+// //     const [attendance, peopleVotes, motionVotes] = await Promise.all([
+// //       supabase.from('attendance').select('*, users(full_name), sections(title)').eq('meeting_id', meetingId),
+// //       supabase.from('votes_people').select('*, candidates(name), sections(title)').eq('meeting_id', meetingId),
+// //       supabase.from('votes_motions').select('*, motions(title), sections(title)').eq('meeting_id', meetingId),
+// //     ])
+// //     if (attendance.error) throw attendance.error
+// //     if (peopleVotes.error) throw peopleVotes.error
+// //     if (motionVotes.error) throw motionVotes.error
+// //     return { attendance: attendance.data, peopleVotes: peopleVotes.data, motionVotes: motionVotes.data }
+// //   },
+// // }
+
+
 // import { supabase } from './supabaseClient'
 
 // export const adminService = {
@@ -24,8 +92,51 @@
 //     if (error) throw error
 //   },
 
+//   // ── Categories ──────────────────────────────────────────────
+//   async getCategories(sectionId) {
+//     const { data, error } = await supabase
+//       .from('categories')
+//       .select('*, candidates(*)')
+//       .eq('section_id', sectionId)
+//       .order('order_index')
+//     if (error) throw error
+//     return data
+//   },
+
+//   async createCategory(category) {
+//     const { data, error } = await supabase
+//       .from('categories')
+//       .insert(category)
+//       .select()
+//       .single()
+//     if (error) throw error
+//     return data
+//   },
+
+//   async updateCategory(id, updates) {
+//     const { data, error } = await supabase
+//       .from('categories')
+//       .update(updates)
+//       .eq('id', id)
+//       .select()
+//       .single()
+//     if (error) throw error
+//     return data
+//   },
+
+//   async deleteCategory(id) {
+//     const { error } = await supabase.from('categories').delete().eq('id', id)
+//     if (error) throw error
+//   },
+
+//   // ── Candidates ───────────────────────────────────────────────
 //   async createCandidate(candidate) {
-//     const { data, error } = await supabase.from('candidates').insert(candidate).select().single()
+//     // candidate must include category_id
+//     const { data, error } = await supabase
+//       .from('candidates')
+//       .insert(candidate)
+//       .select()
+//       .single()
 //     if (error) throw error
 //     return data
 //   },
@@ -35,6 +146,7 @@
 //     if (error) throw error
 //   },
 
+//   // ── Motions ──────────────────────────────────────────────────
 //   async createMotion(motion) {
 //     const { data, error } = await supabase.from('motions').insert(motion).select().single()
 //     if (error) throw error
@@ -55,7 +167,7 @@
 //   async getFullResults(meetingId) {
 //     const [attendance, peopleVotes, motionVotes] = await Promise.all([
 //       supabase.from('attendance').select('*, users(full_name), sections(title)').eq('meeting_id', meetingId),
-//       supabase.from('votes_people').select('*, candidates(name), sections(title)').eq('meeting_id', meetingId),
+//       supabase.from('votes_people').select('*, candidates(name, category_id, categories(title)), sections(title)').eq('meeting_id', meetingId),
 //       supabase.from('votes_motions').select('*, motions(title), sections(title)').eq('meeting_id', meetingId),
 //     ])
 //     if (attendance.error) throw attendance.error
@@ -69,12 +181,28 @@
 import { supabase } from './supabaseClient'
 
 export const adminService = {
+  // ── Users ────────────────────────────────────────────────────
   async getAllUsers() {
-    const { data, error } = await supabase.from('users').select('*').order('created_at', { ascending: false })
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .order('created_at', { ascending: false })
     if (error) throw error
     return data
   },
 
+  async updateUserRole(userId, role) {
+    const { data, error } = await supabase
+      .from('users')
+      .update({ role, updated_at: new Date().toISOString() })
+      .eq('id', userId)
+      .select()
+      .single()
+    if (error) throw error
+    return data
+  },
+
+  // ── Sections ─────────────────────────────────────────────────
   async createSection(section) {
     const { data, error } = await supabase.from('sections').insert(section).select().single()
     if (error) throw error
@@ -92,7 +220,7 @@ export const adminService = {
     if (error) throw error
   },
 
-  // ── Categories ──────────────────────────────────────────────
+  // ── Categories ───────────────────────────────────────────────
   async getCategories(sectionId) {
     const { data, error } = await supabase
       .from('categories')
@@ -104,22 +232,13 @@ export const adminService = {
   },
 
   async createCategory(category) {
-    const { data, error } = await supabase
-      .from('categories')
-      .insert(category)
-      .select()
-      .single()
+    const { data, error } = await supabase.from('categories').insert(category).select().single()
     if (error) throw error
     return data
   },
 
   async updateCategory(id, updates) {
-    const { data, error } = await supabase
-      .from('categories')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single()
+    const { data, error } = await supabase.from('categories').update(updates).eq('id', id).select().single()
     if (error) throw error
     return data
   },
@@ -131,12 +250,7 @@ export const adminService = {
 
   // ── Candidates ───────────────────────────────────────────────
   async createCandidate(candidate) {
-    // candidate must include category_id
-    const { data, error } = await supabase
-      .from('candidates')
-      .insert(candidate)
-      .select()
-      .single()
+    const { data, error } = await supabase.from('candidates').insert(candidate).select().single()
     if (error) throw error
     return data
   },
@@ -164,15 +278,47 @@ export const adminService = {
     if (error) throw error
   },
 
+  // ── Results ──────────────────────────────────────────────────
   async getFullResults(meetingId) {
     const [attendance, peopleVotes, motionVotes] = await Promise.all([
-      supabase.from('attendance').select('*, users(full_name), sections(title)').eq('meeting_id', meetingId),
-      supabase.from('votes_people').select('*, candidates(name, category_id, categories(title)), sections(title)').eq('meeting_id', meetingId),
-      supabase.from('votes_motions').select('*, motions(title), sections(title)').eq('meeting_id', meetingId),
+      supabase
+        .from('attendance')
+        .select('*, users(id, full_name, email), sections(title)')
+        .eq('meeting_id', meetingId),
+      supabase
+        .from('votes_people')
+        .select('*, candidates(id, name, category_id), categories(id, title), sections(title), voters:voter_id(full_name)')
+        .eq('meeting_id', meetingId),
+      supabase
+        .from('votes_motions')
+        .select('*, motions(id, title), sections(id, title), voters:voter_id(full_name)')
+        .eq('meeting_id', meetingId),
     ])
     if (attendance.error) throw attendance.error
     if (peopleVotes.error) throw peopleVotes.error
     if (motionVotes.error) throw motionVotes.error
-    return { attendance: attendance.data, peopleVotes: peopleVotes.data, motionVotes: motionVotes.data }
+    return {
+      attendance: attendance.data,
+      peopleVotes: peopleVotes.data,
+      motionVotes: motionVotes.data,
+    }
+  },
+
+  // ── Reports ──────────────────────────────────────────────────
+  async getReportData() {
+    const [meetings, users, attendance, peopleVotes, motionVotes] = await Promise.all([
+      supabase.from('meetings').select('*').order('scheduled_at', { ascending: false }),
+      supabase.from('users').select('id, role, created_at'),
+      supabase.from('attendance').select('id, meeting_id, checked_in, created_at'),
+      supabase.from('votes_people').select('id, meeting_id, created_at'),
+      supabase.from('votes_motions').select('id, meeting_id, vote, created_at'),
+    ])
+    return {
+      meetings: meetings.data || [],
+      users: users.data || [],
+      attendance: attendance.data || [],
+      peopleVotes: peopleVotes.data || [],
+      motionVotes: motionVotes.data || [],
+    }
   },
 }
