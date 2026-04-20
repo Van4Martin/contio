@@ -127,14 +127,14 @@ export const meetingService = {
 
   // ── Sessions ─────────────────────────────────────────────────
   async getSessionsByMeeting(meetingId) {
-    const { data, error } = await supabase
-      .from('sessions')
-      .select('*')
-      .eq('meeting_id', meetingId)
-      .order('order_index')
-    if (error) throw error
-    return data
-  },
+  const { data, error } = await supabase
+    .from('sessions')
+    .select('*, agenda_items(*)')
+    .eq('meeting_id', meetingId)
+    .order('order_index')
+  if (error) throw error
+  return data
+},
 
   async getSessionById(sessionId) {
     const { data, error } = await supabase
