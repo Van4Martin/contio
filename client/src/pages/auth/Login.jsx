@@ -4,6 +4,7 @@ import { Mail, Lock } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
 import Input from '../../components/common/Input'
 import Button from '../../components/common/Button'
+import logo from '../../assets/images/logo.jpg';
 
 export default function Login() {
   const { login } = useAuth()
@@ -46,16 +47,23 @@ export default function Login() {
         className="fade-in"
       >
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
-          <div style={{
-            width: '40px', height: '40px',
-            background: 'var(--accent)',
-            borderRadius: '10px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <span style={{ color: '#fff', fontSize: '20px', fontWeight: 800, fontFamily: 'var(--font-display)' }}>M</span>
-          </div>
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '20px' }}>MeetGov</span>
+<div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
+  <div style={{
+    width: '40px',
+    height: '40px',
+    borderRadius: '10px',
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }}>
+    <img 
+      src={logo} 
+      alt="Logo" 
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+    />
+  </div>
+        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '20px' }}>ST ANTHONY OF PADUA CUSTODY</span>
         </div>
 
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '24px', fontWeight: 800, marginBottom: '6px' }}>

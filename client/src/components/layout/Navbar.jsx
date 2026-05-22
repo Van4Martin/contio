@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LogOut, Settings, LayoutDashboard, Shield } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
+import logo from '../../assets/images/logo.jpg';
 
 export default function Navbar() {
   const { user, isAdmin, logout } = useAuth()
@@ -24,18 +25,23 @@ export default function Navbar() {
       position: 'sticky', top: 0, zIndex: 100,
     }}>
       <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-        <div style={{
-          width: '32px', height: '32px',
-          background: 'var(--accent)',
-          borderRadius: '8px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>
-          <span style={{ color: '#fff', fontSize: '16px', fontWeight: 800, fontFamily: 'var(--font-display)' }}>M</span>
-        </div>
-        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '17px', color: 'var(--text-primary)' }}>
-          MeetGov
-        </span>
-      </Link>
+  <div style={{
+    width: '32px', height: '32px',
+    background: 'var(--accent)',
+    borderRadius: '8px',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    overflow: 'hidden'
+  }}>
+    <img 
+      src={logo} 
+      alt="Logo" 
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+    />
+  </div>
+  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '17px', color: 'var(--text-primary)' }}>
+    OFMCONVGH
+  </span>
+</Link>
 
       <nav style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
         <NavLink to="/dashboard" icon={<LayoutDashboard size={15} />} label="Dashboard" active={location.pathname === '/dashboard'} />
