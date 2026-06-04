@@ -497,7 +497,7 @@ export default function MeetingDetails() {
   }, [id, user?.id])
 
   const handleCheckIn = async (sessionId) => {
-    await checkIn(id, sessionId)
+    await checkIn(id, sessionId, meeting)
     setCheckedInSessions(prev => new Set([...prev, sessionId]))
   }
 
@@ -692,7 +692,7 @@ export default function MeetingDetails() {
                             <ActionTile
                               icon={<UserCheck size={20} />}
                               title={checkedIn ? 'Checked In' : 'Check In'}
-                              desc={checkedIn ? 'Attendance recorded' : 'Mark your attendance'}
+                              desc={checkedIn ? 'Attendance recorded' : meeting?.geofence_enabled ? '📍 Location required' : 'Mark your attendance'}
                               color="var(--success)"
                               done={checkedIn}
                               doneLabel="Already checked in"

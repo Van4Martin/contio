@@ -309,6 +309,21 @@ export default function ManageSessions() {
                                 <Lock size={12} /> Election closed
                               </span>
                             )}
+                            {session.motions_open && !session.motions_closed_at && (
+  <Button
+    size="sm"
+    onClick={async () => {
+      const updated = await meetingService.updateSession(session.id, {
+        motions_open: false,
+        motions_closed_at: new Date().toISOString(),
+      })
+      setSessions(prev => prev.map(s => s.id === session.id ? { ...s, ...updated } : s))
+      toast.success('Motions closed.')
+    }}
+  >
+    Close Motions
+  </Button>
+)}
                           </div>
                         </div>
                       </div>
