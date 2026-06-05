@@ -40,7 +40,7 @@ export default function Dashboard() {
             Hello, {name} 👋
           </h1>
           <p style={{ color: 'var(--text-muted)', marginBottom: '40px' }}>
-            Here are your upcoming and recent meetings.
+            Here are your upcoming and recent Chapters.
           </p>
 
           {meetings.length === 0 ? (
