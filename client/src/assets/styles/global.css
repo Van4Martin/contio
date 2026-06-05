@@ -140,3 +140,21 @@ input, textarea, select { font-family: var(--font-body); }
 
 .fade-in  { animation: fadeIn  0.35s ease both; }
 .slide-in { animation: slideIn 0.3s  ease both; }
+
+
+/* ── Mobile overflow fixes ───────────────────── */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  min-width: 0;
+}
+
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
