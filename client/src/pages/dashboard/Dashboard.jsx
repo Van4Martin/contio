@@ -50,8 +50,8 @@ export default function Dashboard() {
               borderRadius: 'var(--radius-xl)',
             }}>
               <Calendar size={40} style={{ color: 'var(--text-muted)', margin: '0 auto 16px' }} />
-              <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: '8px' }}>No meetings yet</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Meetings will appear here once created by an admin.</p>
+              <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: '8px' }}>No Chapters yet</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Chapters will appear here once created by an admin.</p>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

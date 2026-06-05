@@ -256,7 +256,7 @@ export default function ManageUsers() {
         </div>
 
         <div style={{ marginTop: '12px', fontSize: '12px', color: 'var(--text-muted)', textAlign: 'right' }}>
-          Showing {filtered.length} of {users.length} users
+          Showing {filtered.length} of {users.length} Capitulars
         </div>
       </main>
     </div>

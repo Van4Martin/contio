@@ -555,7 +555,7 @@ export default function ManageMeetings() {
 
         {meetings.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '80px' }}>
-            No meetings yet.
+            No Chapters yet.
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

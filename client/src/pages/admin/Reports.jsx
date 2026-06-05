@@ -77,15 +77,15 @@ export default function Reports() {
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 800 }}>Reports</h1>
         </div>
         <p style={{ color: 'var(--text-muted)', marginBottom: '36px', fontSize: '14px' }}>
-          Aggregate analytics across all meetings and users.
+          Aggregate analytics across all Chapters and Users.
         </p>
 
         {/* ── Top KPI Cards ─────────────────────────────────────── */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '28px' }}>
           {[
-            { icon: <Calendar size={18} />, label: 'Total Meetings', value: totalMeetings, color: 'var(--accent)', sub: `${completedMeetings} completed` },
+            { icon: <Calendar size={18} />, label: 'Total Chapters', value: totalMeetings, color: 'var(--accent)', sub: `${completedMeetings} completed` },
             { icon: <Users size={18} />, label: 'Registered Users', value: totalUsers, color: 'var(--success)', sub: `${adminCount} admin · ${memberCount} member` },
-            { icon: <CheckSquare size={18} />, label: 'Total Check-ins', value: totalCheckIns, color: 'var(--warning)', sub: `across all meetings` },
+            { icon: <CheckSquare size={18} />, label: 'Total Check-ins', value: totalCheckIns, color: 'var(--warning)', sub: `across all chapters` },
             { icon: <Vote size={18} />, label: 'Total Votes Cast', value: totalVotesCast, color: '#a78bfa', sub: `${peopleVotes.length} election · ${motionVotes.length} motion` },
           ].map(card => (
             <div key={card.label} style={{
@@ -143,7 +143,7 @@ export default function Reports() {
           <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
               <TrendingUp size={16} style={{ color: 'var(--accent)' }} />
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '15px' }}>New Users (Last 6 Months)</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '15px' }}>New Capitulars (Last 6 Months)</h3>
             </div>
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', height: '100px' }}>
               {usersByMonth.map(({ label, count }) => {
@@ -212,7 +212,7 @@ export default function Reports() {
           </div>
 
           {meetingStats.length === 0 ? (
-            <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '14px' }}>No meetings found.</div>
+            <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '14px' }}>No Chapters found.</div>
           ) : meetingStats.map((m, i) => {
             const statusColor = { draft: 'var(--text-muted)', scheduled: 'var(--warning)', active: 'var(--success)', completed: 'var(--accent)', cancelled: 'var(--danger)' }[m.status]
             return (

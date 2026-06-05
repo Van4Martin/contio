@@ -116,9 +116,9 @@ input, textarea, select { font-family: var(--font-body); }
 .card-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 16px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 .card-row-actions {
   display: flex;
@@ -142,19 +142,44 @@ input, textarea, select { font-family: var(--font-body); }
 .slide-in { animation: slideIn 0.3s  ease both; }
 
 
-/* ── Mobile overflow fixes ───────────────────── */
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-* {
-  min-width: 0;
-}
-
-img, video, canvas, svg {
+/* ✅ SAFE GLOBAL FIXES */
+img, video {
   max-width: 100%;
   height: auto;
-  display: block;
+}
+
+
+/* 🎯 CARD ROW FIX (MAIN ISSUE) */
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* 🎯 CONTROL LAYOUT PROPERLY */
+.user-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.card-row-actions {
+  flex-shrink: 0;
+}
+
+
+/* 🎯 PREVENT TEXT FROM BREAKING LAYOUT */
+.user-info p,
+.user-info span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* 📱 SMALL MOBILE ADJUSTMENT */
+@media (max-width: 480px) {
+  .card-row {
+    gap: 8px;
+  }
 }
