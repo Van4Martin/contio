@@ -497,9 +497,12 @@ export default function MeetingDetails() {
   }, [id, user?.id])
 
   const handleCheckIn = async (sessionId) => {
-    await checkIn(id, sessionId, meeting)
+  const record = await checkIn(id, sessionId, meeting)
+  // Only mark as checked in if the server confirmed it
+  if (record) {
     setCheckedInSessions(prev => new Set([...prev, sessionId]))
   }
+}
 
   const toggleSession = (sessionId) => {
     setExpandedSessions(prev => ({ ...prev, [sessionId]: !prev[sessionId] }))

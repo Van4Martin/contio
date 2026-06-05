@@ -215,7 +215,7 @@ export default function ManageSessions() {
                       {session.has_election && (
                         <Button size="sm" variant="ghost" icon={<Vote size={13} />}
                           onClick={() => navigate(`/admin/election/${session.id}`)}>
-                          Categories
+                          Election Categories
                         </Button>
                       )}
                       <Button size="sm" variant="ghost" icon={<FileText size={13} />}

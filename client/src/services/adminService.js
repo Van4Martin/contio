@@ -439,24 +439,63 @@ export const adminService = {
   },
 
   // ── Results ──────────────────────────────────────────────────
-  async getFullResults(meetingId) {
-    const [sessions, attendance, peopleVotes, motionVotes] = await Promise.all([
-      supabase.from('sessions').select('id, title, order_index').eq('meeting_id', meetingId).order('order_index'),
-      supabase.from('attendance').select('*, users(id, full_name, email), sessions(title)').eq('meeting_id', meetingId),
-      supabase.from('votes_people').select('*, candidates(name, category_id), categories(id, title), sessions(title), voters:voter_id(full_name)').eq('meeting_id', meetingId),
-      supabase.from('votes_motions').select('*, motions(id, title), sessions(id, title), voters:voter_id(full_name)').eq('meeting_id', meetingId),
-    ])
-    if (sessions.error) throw sessions.error
-    if (attendance.error) throw attendance.error
-    if (peopleVotes.error) throw peopleVotes.error
-    if (motionVotes.error) throw motionVotes.error
-    return {
-      sessions: sessions.data,
-      attendance: attendance.data,
-      peopleVotes: peopleVotes.data,
-      motionVotes: motionVotes.data,
-    }
-  },
+ async getFullResults(meetingId) {
+  const [sessions, attendance, peopleVotes, motionVotes] = await Promise.all([
+    // ↓ Added election_closed_at and motions_closed_at
+    supabase
+      .from('sessions')
+      .select('id, title, order_index, election_closed_at, motions_closed_at')
+      .eq('meeting_id', meetingId)
+      .order('order_index'),
+
+    supabase
+      .from('attendance')
+      .select('*, users(id, full_name, email)')
+      .eq('meeting_id', meetingId),
+
+    supabase
+      .from('votes_people')
+      .select('*, candidates(name, category_id), categories(id, title), voters:voter_id(full_name)')
+      .eq('meeting_id', meetingId),
+
+    supabase
+      .from('votes_motions')
+      .select('*, motions(id, title), voters:voter_id(full_name)')
+      .eq('meeting_id', meetingId),
+  ])
+
+  if (sessions.error) throw sessions.error
+  if (attendance.error) throw attendance.error
+  if (peopleVotes.error) throw peopleVotes.error
+  if (motionVotes.error) throw motionVotes.error
+
+  // Build session map keyed by ID
+  const sessionsByIdMap = {}
+  sessions.data?.forEach(s => { sessionsByIdMap[s.id] = s })
+
+  // Manually stamp session_id onto each record for reliable title resolution
+  const attendanceWithSession = (attendance.data || []).map(a => ({
+    ...a,
+    session_id: a.session_id || a.section_id,
+  }))
+
+  const peopleVotesWithSession = (peopleVotes.data || []).map(v => ({
+    ...v,
+    session_id: v.session_id || v.section_id,
+  }))
+
+  const motionVotesWithSession = (motionVotes.data || []).map(v => ({
+    ...v,
+    session_id: v.session_id || v.section_id,
+  }))
+
+  return {
+    sessions: sessions.data,
+    attendance: attendanceWithSession,
+    peopleVotes: peopleVotesWithSession,
+    motionVotes: motionVotesWithSession,
+  }
+},
 
   // ── Reports ──────────────────────────────────────────────────
   async getReportData() {
