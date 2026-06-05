@@ -59,7 +59,7 @@ import Navbar from '../../components/layout/Navbar'
 
 const cards = [
   { to: '/admin/meetings', icon: <CalendarPlus size={28} />, title: 'Manage Chapters', desc: 'Create, edit and control chapters', color: 'var(--accent)' },
-  { to: '/admin/users', icon: <Users size={28} />, title: 'Capitulars', desc: 'View members and manage roles', color: 'var(--success)' },
+  { to: '/admin/users', icon: <Users size={28} />, title: 'Users', desc: 'View Capitulars and manage roles', color: 'var(--success)' },
   { to: '/admin/reports', icon: <BarChart2 size={28} />, title: 'Reports', desc: 'View aggregate analytics', color: 'var(--warning)' },
   { to: '/admin/users', icon: <Shield size={28} />, title: 'Security', desc: 'Manage roles via the Users page', color: 'var(--danger)' },
 ]

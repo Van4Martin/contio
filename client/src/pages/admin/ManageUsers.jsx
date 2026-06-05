@@ -123,7 +123,7 @@ export default function ManageUsers() {
           >
             <option value="all">All Roles</option>
             <option value="admin">Admin</option>
-            <option value="member">Member</option>
+            <option value="member">Capitular</option>
           </select>
         </div>
 
@@ -238,7 +238,7 @@ export default function ManageUsers() {
                             opacity: isUpdating ? 0.6 : 1,
                           }}
                         >
-                          <option value="member">Member</option>
+                          <option value="member">Capitular</option>
                           <option value="admin">Admin</option>
                         </select>
                         <ChevronDown size={12} style={{
@@ -256,7 +256,7 @@ export default function ManageUsers() {
         </div>
 
         <div style={{ marginTop: '12px', fontSize: '12px', color: 'var(--text-muted)', textAlign: 'right' }}>
-          Showing {filtered.length} of {users.length} Capitulars
+          Showing {filtered.length} of {users.length} Users
         </div>
       </main>
     </div>
