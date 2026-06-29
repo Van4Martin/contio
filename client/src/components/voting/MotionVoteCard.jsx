@@ -56,9 +56,9 @@
 import { ThumbsUp, ThumbsDown, Minus, NotebookPen } from 'lucide-react'
 
 const options = [
-  { value: 'yes', label: 'Placet', icon: <ThumbsUp size={16} />, color: 'var(--success)', dim: 'var(--success-dim)', border: 'rgba(34,197,94,0.3)' },
-  { value: 'juxta modum', label: 'Placet Juxta Modum', icon: <NotebookPen size={16} />, color: 'var(--success)', dim: 'var(--success-dim)', border: 'rgba(34,197,94,0.3)' },
-  { value: 'no', label: 'Non Placet', icon: <ThumbsDown size={16} />, color: 'var(--danger)', dim: 'var(--danger-dim)', border: 'rgba(239,68,68,0.3)' },
+  { value: 'yes', label: 'Yes', icon: <ThumbsUp size={16} />, color: 'var(--success)', dim: 'var(--success-dim)', border: 'rgba(34,197,94,0.3)' },
+  { value: 'juxta modum', label: 'Juxta Modum', icon: <NotebookPen size={16} />, color: 'var(--success)', dim: 'var(--success-dim)', border: 'rgba(34,197,94,0.3)' },
+  { value: 'no', label: 'No', icon: <ThumbsDown size={16} />, color: 'var(--danger)', dim: 'var(--danger-dim)', border: 'rgba(239,68,68,0.3)' },
   { value: 'abstain', label: 'Abstain', icon: <Minus size={16} />, color: 'var(--text-secondary)', dim: 'var(--bg-hover)', border: 'var(--border)' },
 ]
 
@@ -130,7 +130,7 @@ export default function MotionVoteCard({ motion, selectedVote, comment, onVote, 
           <textarea
             value={comment || ''}
             onChange={e => onCommentChange?.(e.target.value)}
-            placeholder="State your condition or remark for Placet Juxta Modum..."
+            placeholder="State your condition or remark for Juxta Modum..."
             rows={3}
             required
             style={{

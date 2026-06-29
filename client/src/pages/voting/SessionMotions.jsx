@@ -268,9 +268,9 @@ import { useAuth } from '../../hooks/useAuth'
 import toast from 'react-hot-toast'
 
 const VOTE_LABELS = {
-  yes: '✓ Placet',
-  'juxta modum': '~ Placet Juxta Modum',
-  no: '✗ Non Placet',
+  yes: '✓ Yes',
+  'juxta modum': '~ Juxta Modum',
+  no: '✗ No',
   abstain: '— Abstain',
 }
 const VOTE_COLORS = {
@@ -430,7 +430,7 @@ export default function SessionMotions() {
           Motions
         </h1>
         <p style={{ color: 'var(--text-muted)', marginBottom: '32px', fontSize: '14px' }}>
-          Vote on each motion. Select <strong style={{ color: 'var(--success)' }}>Placet Juxta Modum</strong> to approve with a condition.
+          Vote on each motion. 
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

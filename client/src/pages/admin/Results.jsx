@@ -1017,9 +1017,9 @@ export default function Results() {
                                   marginBottom: data.comments.length > 0 ? '16px' : '0',
                                 }}>
                                   {[
-                                    { label: 'Placet',           value: 'yes',         count: data.yes,                 color: 'var(--success)',     icon: <CheckCircle size={13} /> },
-                                    { label: 'Placet Juxta Mod.',value: 'juxta modum', count: data['juxta modum'] || 0, color: 'var(--success)',     icon: <NotebookPen size={13} /> },
-                                    { label: 'Non Placet',       value: 'no',          count: data.no,                  color: 'var(--danger)',      icon: <XCircle size={13} /> },
+                                    { label: 'Yes',           value: 'yes',         count: data.yes,                 color: 'var(--success)',     icon: <CheckCircle size={13} /> },
+                                    { label: 'Juxta Mod.',value: 'juxta modum', count: data['juxta modum'] || 0, color: 'var(--success)',     icon: <NotebookPen size={13} /> },
+                                    { label: 'No',       value: 'no',          count: data.no,                  color: 'var(--danger)',      icon: <XCircle size={13} /> },
                                     { label: 'Abstain',          value: 'abstain',     count: data.abstain,             color: 'var(--text-muted)',  icon: <Minus size={13} /> },
                                   ].map(opt => {
                                     const pct = total > 0 ? Math.round(opt.count / total * 100) : 0

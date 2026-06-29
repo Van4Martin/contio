@@ -8,7 +8,7 @@ export function useAuth() {
   const dispatch = useDispatch()
   const { user, profile, loading } = useSelector(state => state.auth)
 
-  const isAdmin = user?.user_metadata?.role === 'admin' || profile?.role === 'admin'
+  const isAdmin = profile?.role === 'admin' || (!profile && user?.user_metadata?.role === 'admin')
 
   const login = useCallback(async (credentials) => {
     try {
