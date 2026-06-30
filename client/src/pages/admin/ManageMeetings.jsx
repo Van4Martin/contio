@@ -384,38 +384,38 @@ export default function ManageMeetings() {
       .finally(() => setLoading(false))
   }, [])
 
-  const handleCreate = async () => {
-    if (!form.title || !form.scheduled_at) {
-      toast.error('Title and date required')
-      return
-    }
+  // const handleCreate = async () => {
+  //   if (!form.title || !form.scheduled_at) {
+  //     toast.error('Title and date required')
+  //     return
+  //   }
 
-    setSaving(true)
-    try {
-      const m = await meetingService.createMeeting(form)
-      setMeetings(prev => [m, ...prev])
-      setShowCreateModal(false)
+  //   setSaving(true)
+  //   try {
+  //     const m = await meetingService.createMeeting(form)
+  //     setMeetings(prev => [m, ...prev])
+  //     setShowCreateModal(false)
 
-      // ✅ RESET FORM (with geofencing fields)
-      setForm({
-        title: '',
-        description: '',
-        scheduled_at: '',
-        location: '',
-        status: 'draft',
-        geofence_enabled: false,
-        geofence_lat: '',
-        geofence_lng: '',
-        geofence_radius_meters: 100,
-      })
+  //     // ✅ RESET FORM (with geofencing fields)
+  //     setForm({
+  //       title: '',
+  //       description: '',
+  //       scheduled_at: '',
+  //       location: '',
+  //       status: 'draft',
+  //       geofence_enabled: false,
+  //       geofence_lat: '',
+  //       geofence_lng: '',
+  //       geofence_radius_meters: 100,
+  //     })
 
-      toast.success('Meeting created!')
-    } catch (err) {
-      toast.error(err.message)
-    } finally {
-      setSaving(false)
-    }
-  }
+  //     toast.success('Meeting created!')
+  //   } catch (err) {
+  //     toast.error(err.message)
+  //   } finally {
+  //     setSaving(false)
+  //   }
+  // }
 
 //   const handleStatusAction = async (id, action) => {
 //   setActionLoadingId(id)
@@ -445,7 +445,70 @@ export default function ManageMeetings() {
 //     setConfirm(null)
 //   }
 // }
+const handleCreate = async () => {
+  if (!form.title || !form.scheduled_at) {
+    toast.error('Title and date required')
+    return
+  }
 
+  // ✅ Optional validation when geofencing is enabled
+  if (form.geofence_enabled) {
+    if (!form.geofence_lat || !form.geofence_lng) {
+      toast.error('Latitude & Longitude required for geofencing')
+      return
+    }
+  }
+
+  setSaving(true)
+  try {
+    // ✅ Build payload properly
+    const payload = {
+      title: form.title,
+      description: form.description,
+      scheduled_at: form.scheduled_at,
+      location: form.location,
+      status: form.status,
+      geofence_enabled: form.geofence_enabled,
+    }
+
+    // ✅ Only include geofence fields IF enabled
+    if (form.geofence_enabled) {
+      payload.geofence_lat = parseFloat(form.geofence_lat)
+      payload.geofence_lng = parseFloat(form.geofence_lng)
+      payload.geofence_radius_meters = form.geofence_radius_meters
+    } else {
+      // ✅ Force NULL (prevents DB errors)
+      payload.geofence_lat = null
+      payload.geofence_lng = null
+      payload.geofence_radius_meters = null
+    }
+
+    // ✅ Use payload instead of form
+    const m = await meetingService.createMeeting(payload)
+
+    setMeetings(prev => [m, ...prev])
+    setShowCreateModal(false)
+
+    // ✅ Reset form (unchanged UI behavior)
+    setForm({
+      title: '',
+      description: '',
+      scheduled_at: '',
+      location: '',
+      status: 'draft',
+      geofence_enabled: false,
+      geofence_lat: '',
+      geofence_lng: '',
+      geofence_radius_meters: 100,
+    })
+
+    toast.success('Meeting created!')
+  } catch (err) {
+    toast.error(err.message)
+  } finally {
+    setSaving(false)
+  }
+}
 
     const handleStatusAction = async (id, action) => {
     setActionLoadingId(id)
