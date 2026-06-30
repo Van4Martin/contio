@@ -1287,13 +1287,19 @@ export default function Results() {
     if (motionResults[section][motion][v.vote] !== undefined) {
       motionResults[section][motion][v.vote]++
     }
+    // if (v.comment) {
+    //   motionResults[section][motion].comments.push({
+    //     voter: v.voters?.full_name || 'Anonymous',
+    //     text: v.comment,
+    //     vote: v.vote,
+    //   })
+    // }
     if (v.comment) {
-      motionResults[section][motion].comments.push({
-        voter: v.voters?.full_name || 'Anonymous',
-        text: v.comment,
-        vote: v.vote,
-      })
-    }
+  motionResults[section][motion].comments.push({
+    text: v.comment,
+    vote: v.vote,
+  })
+   }
   })
 
   // ── ✅ NEW: Build full roster per session — everyone starts Absent ──
