@@ -220,7 +220,7 @@ export default function ManageSessions() {
                       )}
                       <Button size="sm" variant="ghost" icon={<FileText size={13} />}
                         onClick={() => navigate(`/admin/motions-session/${session.id}`)}>
-                        Motions
+                        Motions/Elections
                       </Button>
                       <Button size="sm" variant="danger" icon={<Trash2 size={13} />}
                         onClick={() => handleDeleteSession(session.id)} />
@@ -256,7 +256,7 @@ export default function ManageSessions() {
                         {/* Motions toggle */}
                         <ControlCard
                           icon={<FileText size={16} />}
-                          title="Motions"
+                          title="Motions/Elections"
                           desc={session.motions_open ? 'Members can vote on motions' : 'Motion voting closed'}
                           active={session.motions_open}
                           onToggle={() => toggleControl(session.id, 'motions_open', session.motions_open)}
