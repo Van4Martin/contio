@@ -32,9 +32,9 @@ export const authService = {
     return data
   },
 
-  async sendPasswordReset(email) {
+ async sendPasswordReset(email) {
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://ofmconvgh.app/reset-password',
+    redirectTo: `${window.location.origin}/reset-password`,
   })
   if (error) throw error
 },
