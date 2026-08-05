@@ -32,6 +32,18 @@ export const authService = {
     return data
   },
 
+  async sendPasswordReset(email) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://ofmconvgh.app/reset-password',
+  })
+  if (error) throw error
+},
+
+async updatePassword(newPassword) {
+  const { error } = await supabase.auth.updateUser({ password: newPassword })
+  if (error) throw error
+},
+
   async updateProfile(userId, updates) {
     const { data, error } = await supabase
       .from('users')

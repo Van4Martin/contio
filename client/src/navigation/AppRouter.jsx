@@ -147,6 +147,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import Login from '../pages/auth/Login'
+import ForgotPassword from '../pages/auth/ForgotPassword'
+import ResetPassword from '../pages/auth/ResetPassword'
 import Register from '../pages/auth/Register'
 import Dashboard from '../pages/dashboard/Dashboard'
 import MeetingDetails from '../pages/meeting/MeetingDetails'
@@ -187,6 +189,8 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
+        <Route path="/reset-password"  element={<ResetPassword />} />
         <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
         <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
